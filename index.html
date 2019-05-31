@@ -1,99 +1,119 @@
 <!doctype html>
 <html>
-<head>
-	<title>Earth</title>
-	<meta charset='utf-8'>
-	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <link rel='icon' href='images/fav.png'>
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,600i,700|Source+Code+Pro:600'>
-    <link rel='stylesheet' href='earth.6ly.ca.29052019.css'>
-    <link rel='license' href='https://raw.githubusercontent.com/6ly-design-studio/6ly-earth/master/LICENSE'>
-    <!--
-        MIT License
+    <head>
+        <title>Earth</title>
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <link rel='icon' href='images/fav.png'>
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,600i,700|Source+Code+Pro:600'>
+        <link rel='stylesheet' href='earth.6ly.ca.31052019.css'>
+        <link rel='license' href='https://raw.githubusercontent.com/6ly-design-studio/6ly-earth/master/LICENSE'>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-139870160-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-        Copyright (c) 2019, John Morrison, 6LY Design Studio, https://6ly.ca
+            gtag('config', 'UA-139870160-1');
+        </script>
+        <!--
+            MIT License
 
-        Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+            Copyright (c) 2019, John Morrison, 6LY Design Studio, https://6ly.ca
 
-        The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+            Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-    -->
-</head>
-<body id='docBody' style='background: #000000;'>
-    <div id='nav' style='display: block;'>
-        <div id='logo'></div>
-        <div class='hline'></div>
-        <div class='button-wide' onclick='document.getElementById("locales").style.display = "block"'>Edit locales</div>
-        <div class='hline'></div>
-        <div class='button-cycle'>
-            <div><div class='ico' style='background-image: url(svg/theme.svg)'></div></div>
-            <div id='cycle-theme'>Theme 1</div>
-            <div class='cycle-next'></div>
+            The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+        -->
+    </head>
+    <body id='docBody' style='background: #000000;'>
+        <div id='nav-toggle' onclick='navToggle()'>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
-        <div class='button-cycle'>
-            <div><div class='ico' style='background-image: url(svg/lights.svg)'></div></div>
-            <div id='cycle-lights'>Lights 1</div>
-            <div class='cycle-next'></div>
+        <div id='nav-mobile-zoom-in' onclick='navMobileZoomIn()'>
+            <div></div>
         </div>
-        <div class='button-cycle'>
-            <div><div class='ico' style='background-image: url(svg/spin.svg)'></div></div>
-            <div id='cycle-spin'>Spin medium</div>
-            <div class='cycle-next'></div>
+        <div id='nav-mobile-zoom-out' onclick='navMobileZoomOut()'>
+            <div></div>
         </div>
-        <div class='button-cycle'>
-            <div><div class='ico' style='background-image: url(svg/clouds.svg)'></div></div>
-            <div id='cycle-clouds'>Clouds dynamic</div>
-            <div class='cycle-next'></div>
+        <div id='nav'>
+            <div id='logo'></div>
+            <div class='hline'></div>
+            <div class='button-wide' onclick='document.getElementById("locales").style.display = "block"'>Edit locales</div>
+            <div class='hline'></div>
+            <div class='button-cycle'>
+                <div><div class='ico' style='background-image: url(svg/theme.svg)'></div></div>
+                <div id='cycle-theme'>Theme 1</div>
+                <div class='cycle-next'></div>
+            </div>
+            <div class='button-cycle'>
+                <div><div class='ico' style='background-image: url(svg/lights.svg)'></div></div>
+                <div id='cycle-lights'>Lights 1</div>
+                <div class='cycle-next'></div>
+            </div>
+            <div class='button-cycle'>
+                <div><div class='ico' style='background-image: url(svg/spin.svg)'></div></div>
+                <div id='cycle-spin'>Spin medium</div>
+                <div class='cycle-next'></div>
+            </div>
+            <div class='button-cycle'>
+                <div><div class='ico' style='background-image: url(svg/clouds.svg)'></div></div>
+                <div id='cycle-clouds'>Clouds dynamic</div>
+                <div class='cycle-next'></div>
+            </div>
+            <div class='button-cycle'>
+                <div><div class='ico' style='background-image: url(svg/xdrag.svg)'></div></div>
+                <div id='cycle-xdrag'>LR drag enabled</div>
+                <div class='cycle-next'></div>
+            </div>
+            <div class='button-cycle'>
+                <div><div class='ico' style='background-image: url(svg/ydrag.svg)'></div></div>
+                <div id='cycle-ydrag'>UD drag enabled </div>
+                <div class='cycle-next'></div>
+            </div>
+            <div class='button-cycle'>
+                <div><div class='ico' style='background-image: url(svg/zoom.svg)'></div></div>
+                <div id='cycle-zoom'>Zoom enabled</div>
+                <div class='cycle-next'></div>
+            </div>
+            <div style='display: none;' class='button-cycle'>
+                <div><div class='ico' style='background-image: url(svg/labels.svg)'></div></div>
+                <div id='cycle-labels'>Labels enabled</div>
+                <div class='cycle-next'></div>
+            </div>
+            <div class='hline'></div>
+            <div style='display: none;' class='display-grid'>
+                <div id='display-big' class='selected'><div class='ico' style='background-image: url(svg/display-big.svg)'></div></div>
+                <div id='display-med'><div class='ico' style='background-image: url(svg/display-med.svg)'></div></div>
+                <div id='display-sml'><div class='ico' style='background-image: url(svg/display-sml.svg)'></div></div>
+            </div>
+            <div style='display: none;' class='button-wide'>Reload scene</div>
+            <div style='display: none;' class='hline'></div>
+            <p>Free to use 3D WebGL globe.<br><a href='https://github.com/6ly-design-studio/6ly-earth'>Github repository</a><br><a href='https://raw.githubusercontent.com/6ly-design-studio/6ly-earth/master/LICENSE'>License here</a></p>
+            <p>HTML5, CSS3, JS, Three.js</p>
+            <p><a href='https://6ly.ca'>Need a custom implementation? Contact us.</a></p>
+            <div class='hline'></div>
+            <p style='text-align: center; color:#444444; color:rgba(255,255,255,0.2); font-size: 13px;'><i>UI, JS, maps,... John Morrison, 6LY Design Studio, https://6ly.ca <br>MIT License (c) 2019<br>Icons https://linearicons.com by https://perxis.com/ <br>CC BY-SA 4.0</i></p>
         </div>
-        <div class='button-cycle'>
-            <div><div class='ico' style='background-image: url(svg/xdrag.svg)'></div></div>
-            <div id='cycle-xdrag'>LR drag enabled</div>
-            <div class='cycle-next'></div>
-        </div>
-        <div class='button-cycle'>
-            <div><div class='ico' style='background-image: url(svg/ydrag.svg)'></div></div>
-            <div id='cycle-ydrag'>UD drag enabled </div>
-            <div class='cycle-next'></div>
-        </div>
-        <div class='button-cycle'>
-            <div><div class='ico' style='background-image: url(svg/zoom.svg)'></div></div>
-            <div id='cycle-zoom'>Zoom enabled</div>
-            <div class='cycle-next'></div>
-        </div>
-        <div style='display: none;' class='button-cycle'>
-            <div><div class='ico' style='background-image: url(svg/labels.svg)'></div></div>
-            <div id='cycle-labels'>Labels enabled</div>
-            <div class='cycle-next'></div>
-        </div>
-        <div class='hline'></div>
-        <div style='display: none;' class='display-grid'>
-            <div id='display-big' class='selected'><div class='ico' style='background-image: url(svg/display-big.svg)'></div></div>
-            <div id='display-med'><div class='ico' style='background-image: url(svg/display-med.svg)'></div></div>
-            <div id='display-sml'><div class='ico' style='background-image: url(svg/display-sml.svg)'></div></div>
-        </div>
-        <div style='display: none;' class='button-wide'>Reload scene</div>
-        <div style='display: none;' class='hline'></div>
-        <p>Free to use 3D WebGL globe.<br><a href='https://github.com/6ly-design-studio/6ly-earth'>Github repository</a><br><a href='https://raw.githubusercontent.com/6ly-design-studio/6ly-earth/master/LICENSE'>License here</a></p>
-        <p>HTML5, CSS3, JS, Three.js</p>
-        <p><a href='https://6ly.ca'>Need a custom implementation? Contact us.</a></p>
-        <div class='hline'></div>
-        <p style='text-align: center; color:#444444; color:rgba(255,255,255,0.2); font-size: 13px;'><i>UI, JS, maps,... John Morrison, 6LY Design Studio, https://6ly.ca <br>MIT License (c) 2019<br>Icons https://linearicons.com by https://perxis.com/ <br>CC BY-SA 4.0</i></p>
-    </div>
-    <div id='locales' style='display: none;'>
-        <h2>Edit locales</h2>
-        <div id='locales-list'>
-        </div>
-        <div class='locales-bottom-buttons'>
-            <div onclick='document.getElementById("locales").style.display = "none"'>Done</div>
-            <div>
-                <div class='ico' style='background-image: url(svg/ico-plus.svg)'></div>
+        <div id='locales' style='display: none;'>
+            <h2>Edit locales</h2>
+            <div id='locales-list'>
+            </div>
+            <div class='locales-bottom-buttons'>
+                <div onclick='document.getElementById("locales").style.display = "none"'>Done</div>
+                <div>
+                    <div class='ico' style='background-image: url(svg/ico-plus.svg)'></div>
+                </div>
             </div>
         </div>
-    </div>
-	<div id='webgl'></div>
-	<script src='js/three.min.js'></script>
-	<script src='js/Detector.js'></script>			
-	<script src='js/earth.6ly.ca.min.js'></script>		
-</body>
+        <div id='webgl'></div>
+        <script src='js/three.min.js'></script>
+        <script src='js/Detector.js'></script>			
+        <script src='js/earth.6ly.ca.min.js'></script>		
+    </body>
 </html>

@@ -465,8 +465,8 @@ function reset_scene_objects_locales() {
 
 //////// CONTROLS
 
-var dX, dY, mdX, mdY, vVX, vVY;
-dX = dY = mdX = mdY = vVX = vVY = 0;
+var dX, dY, mdX, mdY, vVX, vVY, tdX, tdY;
+dX = dY = mdX = mdY = vVX = vVY = tdX = tdY = 0;
 var vVXmult = 1,
     vVYmult = 1,
     ZOOMmult = 1;
@@ -492,8 +492,41 @@ function f_ow(event) {
     if (camera.scale.z > cameraMaxZoom) {camera.scale.z = cameraMaxZoom;} else if (camera.scale.z < cameraMinZoom) {camera.scale.z = cameraMinZoom;}
 }
 
-document.getElementById('webgl').onmousemove = f_mm;
-document.getElementById('webgl').onmousewheel = f_ow;
+// Touch move logic
+function f_ts(event) {
+    if (event.touches.length == 1) {
+        tdX = event.touches[0].clientX;
+        tdY = event.touches[0].clientY;
+    }
+}
+function f_tm(event) {
+    console.log(event)
+    if (event.touches.length == 1) {
+        dX = event.touches[0].clientX - tdX;
+        dY = event.touches[0].clientY - tdY;
+
+        vVX += vVXmult*dX*mouseSensitivity;
+        vVY += vVYmult*dY*mouseSensitivity;
+    }
+
+    tdX = event.touches[0].clientX;
+    tdY = event.touches[0].clientY;
+}
+
+function navMobileZoomIn() {
+    camera.scale.z *= (1+ZOOMmult*500*wheelSensitivity);
+    if (camera.scale.z > cameraMaxZoom) {camera.scale.z = cameraMaxZoom;} else if (camera.scale.z < cameraMinZoom) {camera.scale.z = cameraMinZoom;}
+}
+
+function navMobileZoomOut() {
+    camera.scale.z *= (1-ZOOMmult*500*wheelSensitivity);
+    if (camera.scale.z > cameraMaxZoom) {camera.scale.z = cameraMaxZoom;} else if (camera.scale.z < cameraMinZoom) {camera.scale.z = cameraMinZoom;}
+}
+
+document.getElementById('webgl').onmousemove  = f_mm,
+document.getElementById('webgl').onmousewheel = f_ow,
+document.getElementById('webgl').ontouchstart  = f_ts;
+document.getElementById('webgl').ontouchmove  = f_tm;
 
 setInterval(function(){
     if (Math.abs(vVX) > maxDragVelocity) {vVX = vVX/Math.abs(vVX)*maxDragVelocity;} else {vVX = dragDamping*vVX;}
@@ -675,19 +708,33 @@ var nav_zoomCycle = ['enabled', 'disabled'],
     nav_zoom = 'enabled';
 
 function nav_next_zoom() {
-    if (nav_zoom_i + 1 == nav_zoomCycle.length) {nav_zoom_i = 0;} else {nav_zoom_i += 1;}
-    nav_zoom = nav_zoomCycle[nav_zoom_i];
+    if (nav_zoom_i + 1 == nav_zoomCycle.length) {nav_zoom_i = 0} 
+    else {nav_zoom_i += 1}
+    nav_zoom = nav_zoomCycle[nav_zoom_i],
     document.getElementById('cycle-zoom').innerHTML = 'Zoom ' + nav_zoom;
 
     if (nav_zoom == 'enabled') {
-        ZOOMmult = 1;
+        ZOOMmult = 1
     } else if (nav_zoom == 'disabled') {
-        ZOOMmult = 0;
-        camera.scale.z = 1;
+        ZOOMmult = 0,
+        camera.scale.z = 1
     }
 }
 
 document.getElementById('cycle-zoom').parentNode.onclick = nav_next_zoom;
+
+
+// Nav toggle
+
+function navToggle() {
+    if (document.getElementById('docBody').classList == 'nav-toggle-on') {
+        document.getElementById('docBody').classList = 'nav-toggle-off';
+    } else {
+        document.getElementById('docBody').classList = 'nav-toggle-on';
+    }
+}
+
+if (width > 640) { navToggle() }
 
 
 // Locales updating
