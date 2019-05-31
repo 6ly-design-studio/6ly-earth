@@ -1,9 +1,9 @@
-6ly-earth, Version 0.2a
-=======================
+Earth by 6LY
+============
 
 https://earth.6ly.ca
 
-Last updated May 31, 2019
+Last updated May 31, 2019. Version 0.2c.
 
 Introduction
 ------------
