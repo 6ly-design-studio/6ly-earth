@@ -295,15 +295,29 @@ camera.position.z = 1.5;
 
 var renderer = new THREE.WebGLRenderer( { alpha: true, antialias: true } );
 renderer.setClearColor( 0x000000, 0 );
-renderer.setSize( width, height );
+
+webglEl.appendChild(renderer.domElement);
+
+canvasEl = webglEl.childNodes[0];
 
 function updateCameraRender() {
-    width  = window.innerWidth;
-    height = window.innerHeight;
+    
+    var dpr = devicePixelRatio,
+        invdpr = 1/dpr;
+    
+    width   = window.innerWidth;
+    height  = window.innerHeight;
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
-    renderer.setSize( width, height );
+    renderer.setSize( width*dpr, height*dpr );
+    
+    var canvas_transforms= 'scale(' + invdpr + ') translate(-' + dpr*width/2*(dpr-1) + 'px, -' + dpr*height/2*(dpr-1) + 'px)';
+    
+    canvasEl.style.transform = canvas_transforms;
+    
 }
+
+updateCameraRender();
 
 
 //// Light objects
@@ -500,7 +514,6 @@ function f_ts(event) {
     }
 }
 function f_tm(event) {
-    console.log(event)
     if (event.touches.length == 1) {
         dX = event.touches[0].clientX - tdX;
         dY = event.touches[0].clientY - tdY;
@@ -552,8 +565,6 @@ setInterval(function(){
 
 
 //////// RENDERING
-
-webglEl.appendChild(renderer.domElement);
 
 function render() {
     earth.rotation.y += passiveEarthRotation/camera.scale.z;
