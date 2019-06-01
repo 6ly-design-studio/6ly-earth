@@ -3,7 +3,7 @@ Earth by 6LY
 
 https://earth.6ly.ca
 
-Last updated May 31, 2019. Version 0.2c.
+Last updated May 31, 2019. Version 0.3a.
 
 Introduction
 ------------
